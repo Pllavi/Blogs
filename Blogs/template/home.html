@@ -1,0 +1,111 @@
+{%extends 'base.html' %}
+
+{%block title%} Welcome to IBLOGS {%endblock%}
+
+{%block content%}
+
+
+<div class="container-custom">
+
+
+    <!-- Set up your HTML -->
+    <div class="owl-carousel">
+
+
+      {% for cat in cats %}
+    <div class="card item" style="margin-left:10px;">
+        <div class="img-container">
+            <img src="/media/{{ cat.image }}" class="responsive-img" alt="">
+        </div>
+        <div class="card-content">
+            <div class="card-title">
+                {{ cat.title }}
+            </div>
+            <p class="truncate">{{ cat.description }}</p>
+
+            <div class="container center-align mt20">
+                <a href="/category/{{ cat.url }}" class="btn bg-primary">VIEW</a>
+                {% if cat.post_set.all %}
+                    {% with first_post=cat.post_set.first %}
+                        <a href="{% url 'edit' category_id=cat.cat_id post_id=first_post.post_id %}">Edit</a>
+                    {% endwith %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
+
+
+
+
+    </div>
+
+
+</div>
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col s12 ">
+
+
+            {%for p in posts %}
+
+            <div class="row">
+
+                <div class="col s12 m8">
+
+
+                    {{p.content |truncatewords:60 | safe}}
+                    <div class="mt20">
+                        <a href="/blog/{{p.url}}" class="btn  bg-primary ">Read More..</a>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <img src="/media/{{p.image}}" class="responsive-img" style="margin-top:50px;">
+
+                </div>
+
+            </div>
+
+
+            {%endfor %}
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{%endblock%}
+
+<!--<!doctype html>-->
+<!--<html lang="en">-->
+<!--  <head>-->
+<!--    &lt;!&ndash; Required meta tags &ndash;&gt;-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+
+<!--    <title>Home Page</title>-->
+<!--  </head>-->
+<!--  <body>-->
+<!--    <h1>Home Page</h1>-->
+<!--    <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>-->
+
+<!--    &lt;!&ndash; Optional JavaScript &ndash;&gt;-->
+<!--    &lt;!&ndash; jQuery first, then Popper.js, then Bootstrap JS &ndash;&gt;-->
+<!--    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
+<!--  </body>-->
+<!--</html>-->
